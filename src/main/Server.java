@@ -1,11 +1,16 @@
 package main;
 
+import java.util.PriorityQueue;
+
+import main.models.Request;
+
 public class Server {
 
-    /**
-     * @param args
-     */
+    private PriorityQueue<Request> requests;
+
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
+        while(true) {
+            //listen
+        }
     }
 }
