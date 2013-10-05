@@ -17,7 +17,7 @@ public class Server {
 
     private PriorityQueue<Request> requests;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         ServerSocket socket = null;
 
         try {
