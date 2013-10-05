@@ -1,5 +1,7 @@
 package main.models;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +11,8 @@ public class Request {
     private static final String HOST = "Host";
 
     Map<String, String> headers;
-    Socket socket;
+    private Socket socket;
+    private DataOutputStream stream;
 
     private static Map<String, String> parse(String data) {
         Map<String, String> toReturn = new HashMap<String, String>();
@@ -30,7 +33,23 @@ public class Request {
     }
 
     public String host() {
-        return headers.get(HOST);
+        return headers.get(HOST).split(":")[0];
+    }
+
+    public Integer port() {
+        return Integer.parseInt(headers.get(HOST).split(":")[1]);
+    }
+
+    public DataOutputStream stream() throws IOException {
+        if (stream == null) {
+            stream = new DataOutputStream(socket.getOutputStream());
+        }
+
+        return stream;
+    }
+
+    public void close() throws IOException {
+        socket.close();
     }
 
     @Override
