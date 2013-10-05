@@ -6,5 +6,6 @@ public class Request {
 
     public Request(String data) {
         this.data = data;
+        System.out.println(data);
     }
 }

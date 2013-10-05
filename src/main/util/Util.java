@@ -7,11 +7,10 @@ public class Util {
 
     public static String read(BufferedReader in) throws IOException {
         String data = "";
-        String line = in.readLine();
+        String line;
 
-        while(line != null && line != "") {
+        while((line = in.readLine()) != null) {
             data = data + line;
-            line = in.readLine();
         }
 
         return data;
