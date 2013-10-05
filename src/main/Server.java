@@ -22,6 +22,7 @@ public class Server {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String message = "";
                 String clientSentence = in.readLine();
+                System.out.println(":" + clientSentence + ":     " + "".equals(clientSentence));
 
                 while(clientSentence != null && clientSentence != "") {
                     message = message + clientSentence;
