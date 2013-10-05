@@ -31,7 +31,7 @@ public class Server {
             Socket connection;
             try {
                 connection = socket.accept();
-                new Request(Util.read(new BufferedReader(new InputStreamReader(connection.getInputStream()))));
+                new Request(Util.read(new BufferedReader(new InputStreamReader(connection.getInputStream()))), connection);
             } catch (IOException e) {
                 // swallow, drop packet
             }

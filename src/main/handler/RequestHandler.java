@@ -1,5 +1,7 @@
 package main.handler;
 
+import java.net.Socket;
+
 import main.models.Request;
 
 public class RequestHandler implements Runnable {
@@ -12,6 +14,6 @@ public class RequestHandler implements Runnable {
 
     @Override
     public void run() {
-        
+        Socket socket = new Socket();
     }
 }
