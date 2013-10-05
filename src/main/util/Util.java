@@ -10,7 +10,7 @@ public class Util {
         String line;
 
         while((line = in.readLine()) != null) {
-            data = data + line;
+            data = data + line + "\n";
         }
 
         return data;
