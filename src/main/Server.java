@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.PriorityQueue;
 
+import main.handler.RequestHandler;
 import main.models.Request;
 import main.util.Util;
 
@@ -14,8 +14,6 @@ public class Server {
 
     private static final Integer PORT = 5000;
     private static final Integer ERROR_ON_STARTUP = -1;
-
-    private PriorityQueue<Request> requests;
 
     public static void main(String[] args) {
         ServerSocket socket = null;
@@ -31,7 +29,9 @@ public class Server {
             Socket connection;
             try {
                 connection = socket.accept();
-                new Request(Util.read(new BufferedReader(new InputStreamReader(connection.getInputStream()))), connection);
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                RequestHandler handler = new RequestHandler(new Request(Util.read(in), connection));
+                handler.run();
             } catch (IOException e) {
                 // swallow, drop packet
             }
