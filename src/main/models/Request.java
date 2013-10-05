@@ -40,7 +40,7 @@ public class Request {
         return Integer.parseInt(headers.get(HOST).split(":")[1]);
     }
 
-    public DataOutputStream stream() throws IOException {
+    public DataOutputStream out() throws IOException {
         if (stream == null) {
             stream = new DataOutputStream(socket.getOutputStream());
         }
