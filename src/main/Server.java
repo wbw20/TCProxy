@@ -20,16 +20,6 @@ public class Server {
         while(true) {
             Socket connection = socket.accept();
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String message = "";
-                String clientSentence = in.readLine();
-                System.out.println(":" + clientSentence + ":     " + "".equals(clientSentence));
-
-                while(clientSentence != null && clientSentence != "") {
-                    message = message + clientSentence;
-                    clientSentence = in.readLine();
-                    System.out.println(":" + clientSentence + ":     " + "".equals(clientSentence));
-                }
-                System.out.println("Received: " + message);
         }
     }
 }
