@@ -20,7 +20,7 @@ public class Request {
             String key = line.split(":")[0];
 
             if (key != null) {
-                toReturn.put(key, line.substring(key.length()));
+                toReturn.put(key, line.substring(key.length() + 1));
             }
         }
 
