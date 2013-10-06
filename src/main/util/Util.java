@@ -9,7 +9,7 @@ public class Util {
         String data = "";
         String line;
 
-        while((line = in.readLine()) != null) {
+        while(!(line = in.readLine()).equals("")) {
             data = data + line + "\n";
         }
 
