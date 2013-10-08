@@ -22,8 +22,12 @@ public class Util {
 
     public static String host(String raw) {
         Matcher matcher = url.matcher(raw);
-        matcher.matches();
-        return matcher.group();
+
+        if (matcher.matches()) {
+            return matcher.group();
+        } else {
+            return null;
+        }
     }
 
     //public static integer port(string raw)
