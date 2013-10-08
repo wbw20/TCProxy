@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.util.Util;
+
 public class Request {
 
     private static final String HOST = "Host";
@@ -33,7 +35,7 @@ public class Request {
     }
 
     public String host() {
-        return headers.get(HOST).split(":")[0];
+        return Util.host(headers.get(HOST));
     }
 
     public Integer port() {
