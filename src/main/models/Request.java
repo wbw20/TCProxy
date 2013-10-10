@@ -2,6 +2,7 @@ package main.models;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class Request {
         this.socket = socket;
     }
 
-    public String host() {
+    public String host() throws MalformedURLException {
         return Util.host(headers.get(HOST));
     }
 
