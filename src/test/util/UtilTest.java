@@ -23,7 +23,6 @@ public class UtilTest {
             assertEquals("www.google.com", Util.host("www.google.com:4000"));
             assertEquals("www.google.com", Util.host("www.google.com:4000/news"));
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -38,7 +37,6 @@ public class UtilTest {
             assertEquals(FOUR_THOUSAND, Util.port("www.google.com:4000"));
             assertEquals(FOUR_THOUSAND, Util.port("www.google.com:4000/news"));
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
