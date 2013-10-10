@@ -40,7 +40,7 @@ public class Request {
     }
 
     public Integer port() {
-        return Integer.parseInt(headers.get(HOST).split(":")[1]);
+        return Util.port(headers.get(HOST));
     }
 
     public DataOutputStream out() throws IOException {

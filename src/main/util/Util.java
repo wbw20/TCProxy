@@ -24,6 +24,7 @@ public class Util {
     }
 
     public static String host(String raw) {
+        raw = raw.replace(" ", "");
         Matcher matcher = url.matcher(raw);
 
         if (matcher.matches()) {
