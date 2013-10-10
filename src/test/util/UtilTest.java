@@ -15,7 +15,7 @@ public class UtilTest {
         try {
 			assertEquals("www.google.com", Util.host("www.google.com"));
 	        assertEquals("www.google.com", Util.host("http://www.google.com"));
-	        assertEquals("www.google.com", Util.host("www.mail.google.com"));
+	        assertEquals("www.mail.google.com", Util.host("www.mail.google.com"));
 	        assertEquals("www.google.com", Util.host("www.google.com/mail"));
 	        assertEquals("www.google.com", Util.host("www.google.com:4000"));
 	        assertEquals("www.google.com", Util.host("www.google.com:4000/news"));
