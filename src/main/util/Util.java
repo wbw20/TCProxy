@@ -23,7 +23,7 @@ public class Util {
         return data;
     }
 
-    public static String host(String raw) throws MalformedURLException {
+    public static String host(String raw) {
         Matcher matcher = url.matcher(raw);
 
         if (matcher.matches()) {
@@ -31,13 +31,17 @@ public class Util {
                 raw = "http://" + raw;
             }
 
-            return new URL(raw).getHost();
-        } else {
-            return null;
+            try {
+                return new URL(raw).getHost();
+            } catch (MalformedURLException e) {
+                // swallow, return null
+            }
         }
+
+        return null;
     }
 
-    public static Integer port(String raw) throws MalformedURLException {
+    public static Integer port(String raw) {
         Matcher matcher = url_with_port.matcher(raw);
 
         if (matcher.matches()) {
@@ -45,9 +49,14 @@ public class Util {
                 raw = "http://" + raw;
             }
 
-            return new URL(raw).getPort();
-        } else {
-            return 80;
+            try {
+                return new URL(raw).getPort();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return  -1;
+            }
         }
+
+        return 80;
     }
 }
