@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 public class Util {
 
     private static Pattern url = Pattern.compile("(@)?(href=')?(HREF=')?(HREF=\")?(href=\")?(http://)?[a-zA-Z_0-9\\-]+(\\.\\w[a-zA-Z_0-9\\-]+)+(/[#&\\n\\-=?\\+\\%/\\.\\w]+)?(:[0-9]+)?\\S*");
+    private static Pattern url_with_port = Pattern.compile("(@)?(href=')?(HREF=')?(HREF=\")?(href=\")?(http://)?[a-zA-Z_0-9\\-]+(\\.\\w[a-zA-Z_0-9\\-]+)+(/[#&\\n\\-=?\\+\\%/\\.\\w]+)?(:[0-9]+)\\S*");
 
     public static String read(BufferedReader in) throws IOException {
         String data = "";
@@ -36,5 +37,17 @@ public class Util {
         }
     }
 
-    //public static integer port(string raw)
+    public static Integer port(String raw) throws MalformedURLException {
+        Matcher matcher = url_with_port.matcher(raw);
+
+        if (matcher.matches()) {
+            if (!raw.substring(0, 7).equals("http://")) {
+                raw = "http://" + raw;
+            }
+
+            return new URL(raw).getPort();
+        } else {
+            return 80;
+        }
+    }
 }
