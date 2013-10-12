@@ -21,14 +21,15 @@ public class RequestHandler implements Runnable {
     public void run() {
         try {
             Socket socket = new Socket(request.host(), request.port());
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            out.writeBytes(request.toString());
+            out.writeBytes(request.toString() + "\r\n");
 
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             request.out().writeBytes(Util.read(in));
             request.close();
             socket.close();
         } catch (IOException e) {
+            e.printStackTrace();
             // swallow, abort
         }
 

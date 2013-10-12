@@ -16,11 +16,16 @@ public class Util {
         String data = "";
         String line;
 
-        while(!(line = in.readLine()).equals("")) {
+        while(empty((line = in.readLine()))) {
+            System.out.println(line);
             data = data + line + "\n";
         }
 
         return data;
+    }
+
+    private static Boolean empty(String string) {
+        return !(string == null || string.equals(""));
     }
 
     public static String host(String raw) {
