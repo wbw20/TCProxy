@@ -60,7 +60,11 @@ public class Request {
         String toReturn = "";
 
         for(String key : headers.keySet()) {
-            toReturn += key + ": " + headers.get(key) + "\n";
+            if (key.equals("Proxy-Connection")) {
+                toReturn += "Connection: " + headers.get(key) + "\n";
+            } else {
+                toReturn += key + ": " + headers.get(key) + "\n";
+            }
         }
 
         return toReturn;

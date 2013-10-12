@@ -17,7 +17,6 @@ public class Util {
         String line;
 
         while(empty((line = in.readLine()))) {
-            System.out.println(line);
             data = data + line + "\n";
         }
 
