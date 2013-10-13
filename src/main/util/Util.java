@@ -11,20 +11,25 @@ public class Util {
 
     private static Pattern url = Pattern.compile("(@)?(href=')?(HREF=')?(HREF=\")?(href=\")?(http://)?[a-zA-Z_0-9\\-]+(\\.\\w[a-zA-Z_0-9\\-]+)+(/[#&\\n\\-=?\\+\\%/\\.\\w]+)?(:[0-9]+)?\\S*");
     private static Pattern url_with_port = Pattern.compile("(@)?(href=')?(HREF=')?(HREF=\")?(href=\")?(http://)?[a-zA-Z_0-9\\-]+(\\.\\w[a-zA-Z_0-9\\-]+)+(/[#&\\n\\-=?\\+\\%/\\.\\w]+)?(:[0-9]+)\\S*");
+    private static Pattern initial = Pattern.compile("^(GET|HEAD|POST|PUT|DELETE|TRACE)\\s.*");
 
     public static String read(BufferedReader in) throws IOException {
         String data = "";
         String line;
 
-        while(empty((line = in.readLine()))) {
+        while(!empty((line = in.readLine()))) {
             data = data + line + "\n";
         }
 
         return data;
     }
 
+    public static Boolean isInitialLine(String line) {
+        return initial.matcher(line).matches();
+    }
+
     private static Boolean empty(String string) {
-        return !(string == null || string.equals(""));
+        return string == null || string.equals("");
     }
 
     public static String host(String raw) {
