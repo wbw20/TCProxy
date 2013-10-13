@@ -20,12 +20,12 @@ public class Request {
 
     private static Map<String, String> parse(String data) {
         Map<String, String> toReturn = new HashMap<String, String>();
-        for (String line : data.split("\n")) {
+        for (String line : data.split("\r\n")) {
             if (!Util.isInitialLine(line)) {
                 String key = line.split(":")[0];
 
                 if (key != null && line.trim().length() > 0) {
-                    toReturn.put(key, line.substring(key.length() + 1));
+                    toReturn.put(key, line.substring(key.length() + 2));
                 }
             }
         }
