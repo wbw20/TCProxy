@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,22 +15,32 @@ public class Util {
     private static Pattern initial = Pattern.compile("^(GET|HEAD|POST|PUT|DELETE|TRACE)\\s.*");
 
     public static String read(BufferedReader in) throws IOException {
-        String data = "";
-        String line;
+        ArrayList<Character> data = new ArrayList<Character>();
+        int character;
 
-        while(!empty((line = in.readLine()))) {
-            data = data + line + "\n";
+        while(in.ready() && !empty(character = in.read())) {
+            data.add((char)character);
         }
 
-        return data;
+        return stringify(data);
+    }
+
+    private static String stringify(ArrayList<Character> chars) {
+        char[] primitives = new char[chars.size()];
+
+        for (int i = 0; i < primitives.length; i++) {
+            primitives[i] = chars.get(i);
+        }
+
+        return new String(primitives);
     }
 
     public static Boolean isInitialLine(String line) {
         return initial.matcher(line).matches();
     }
 
-    private static Boolean empty(String string) {
-        return string == null || string.equals("");
+    private static Boolean empty(Integer num) {
+        return num == -1;
     }
 
     public static String host(String raw) {

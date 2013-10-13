@@ -24,7 +24,7 @@ public class Request {
             if (!Util.isInitialLine(line)) {
                 String key = line.split(":")[0];
 
-                if (key != null) {
+                if (key != null && line.trim().length() > 0) {
                     toReturn.put(key, line.substring(key.length() + 1));
                 }
             }
