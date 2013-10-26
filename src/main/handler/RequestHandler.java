@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import main.models.Request;
+import main.util.Util;
 
 public class RequestHandler implements Runnable {
 
@@ -21,23 +22,17 @@ public class RequestHandler implements Runnable {
         PrintWriter outGoing = null;
         try {
             outGoing = new PrintWriter(request.out(), true);
-            String dataIn = "";
-            char[] buf = new char[100000];
             Socket connSocket = new Socket(request.host(), request.port());
-            System.out.println(request.host() + ":" + request.port());
             PrintWriter pOut = new PrintWriter(connSocket.getOutputStream(), true);
 
             BufferedReader pIn = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
             pOut.print(request.toString());
             pOut.flush();
-            int bytesRead = pIn.read(buf);
-
-            if(bytesRead > 0) {
-               dataIn = new String(buf, 0, bytesRead);
-            }
+            String dataIn = Util.read(pIn);
 
             System.out.println(dataIn);
             outGoing.write(dataIn);
+            outGoing.flush();
         } catch (IOException e) {
             e.printStackTrace();
             // swallow, abort
