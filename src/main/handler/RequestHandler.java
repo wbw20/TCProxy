@@ -28,6 +28,11 @@ public class RequestHandler implements Runnable {
             BufferedReader pIn = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
             pOut.print(request.toString());
             pOut.flush();
+
+            while(!pIn.ready()) {
+                Thread.sleep(1);
+            }
+
             String dataIn = Util.read(pIn);
 
             System.out.println(dataIn);
@@ -36,7 +41,10 @@ public class RequestHandler implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
             // swallow, abort
-        }
+        } catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         return; 
     }
