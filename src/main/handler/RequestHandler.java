@@ -1,13 +1,12 @@
 package main.handler;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 import main.models.Request;
-import main.util.Util;
 
 public class RequestHandler implements Runnable {
 
@@ -19,15 +18,26 @@ public class RequestHandler implements Runnable {
 
     @Override
     public void run() {
+        PrintWriter outGoing = null;
         try {
-            Socket socket = new Socket(request.host(), request.port());
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            out.writeBytes(request.toString() + "\r\n");
+            outGoing = new PrintWriter(request.out(), true);
+            String dataIn = "";
+            char[] buf = new char[100000];
+            Socket connSocket = new Socket(request.host(), request.port());
+            System.out.println(request.host() + ":" + request.port());
+            PrintWriter pOut = new PrintWriter(connSocket.getOutputStream(), true);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            request.out().writeBytes(Util.read(in));
-            request.close();
-            socket.close();
+            BufferedReader pIn = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
+            pOut.print(request.toString());
+            pOut.flush();
+            int bytesRead = pIn.read(buf);
+
+            if(bytesRead > 0) {
+               dataIn = new String(buf, 0, bytesRead);
+            }
+
+            System.out.println(dataIn);
+            outGoing.write(dataIn);
         } catch (IOException e) {
             e.printStackTrace();
             // swallow, abort

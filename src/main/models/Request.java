@@ -84,6 +84,6 @@ public class Request {
             }
         }
 
-        return toReturn;
+        return toReturn + "\r\n";
     }
 }

@@ -30,9 +30,13 @@ public class Server {
             try {
                 connection = socket.accept();
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                RequestHandler handler = new RequestHandler(new Request(Util.read(in), connection));
-                handler.run();
-            } catch (IOException e) {
+                String input = Util.read(in);
+                if (!"".equals(input)) {
+                    RequestHandler handler = new RequestHandler(new Request(input, connection));
+                    handler.run();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
                 // swallow, drop packet
             }
         }
