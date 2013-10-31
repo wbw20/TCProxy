@@ -39,7 +39,6 @@ public class RequestHandler implements Runnable {
 
             System.out.println(dataIn);
             outGoing.write(dataIn); // to client
-            outGoing.write((char)(-1));
             outGoing.flush();
         } catch (IOException e) {
             e.printStackTrace();
