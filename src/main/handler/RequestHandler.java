@@ -35,22 +35,16 @@ public class RequestHandler implements Runnable {
             pOut.print(request.toString());
             pOut.flush();
 
-            while(!pIn.ready()) {
-                Thread.sleep(1);
-            }
-
             String dataIn = Util.read(pIn);
 
             System.out.println(dataIn);
             outGoing.write(dataIn);
+            outGoing.write((char)(-1));
             outGoing.flush();
         } catch (IOException e) {
             e.printStackTrace();
-            // swallow, abort
-        } catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
 
         return; 
     }

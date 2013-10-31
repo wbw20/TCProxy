@@ -15,14 +15,15 @@ public class Util {
     private static Pattern initial = Pattern.compile("^(GET|HEAD|POST|PUT|DELETE|TRACE)\\s.*");
 
     public static String read(BufferedReader in) throws IOException {
-        ArrayList<Character> data = new ArrayList<Character>();
-        int character;
+         char[] buf = new char[1000000];
+         int bytesRead = in.read(buf);
+         String read = "";
 
-        while(in.ready() && !empty(character = in.read())) {
-            data.add((char)character);
-        }
+         if(bytesRead > 0) {
+             read = new String(buf, 0, bytesRead);
+         }
 
-        return stringify(data);
+         return read;
     }
 
     private static String stringify(ArrayList<Character> chars) {

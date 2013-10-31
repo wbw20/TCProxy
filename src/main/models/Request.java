@@ -19,12 +19,13 @@ public class Request {
     private DataOutputStream stream;
 
     private static Map<String, String> parse(String data) {
+        System.out.println("DATA: " + data);
         Map<String, String> toReturn = new HashMap<String, String>();
         for (String line : data.split("\r\n")) {
             if (!Util.isInitialLine(line)) {
                 String key = line.split(":")[0];
 
-                if (key != null && line.trim().length() > 0) {
+                if (key != null && line.trim().length() > 0 && line.length() >= key.length() + 2) {
                     toReturn.put(key, line.substring(key.length() + 2));
                 }
             }
@@ -76,9 +77,7 @@ public class Request {
         for (String key : headers.keySet()) {
             if (key.equals("Proxy-Connection")) {
                 // change this to just connection to prevent 400
-                toReturn = toReturn + "Connection:" + headers.get(key) + "\n";
-            } else if (key.equals("Accept-Encoding")) {
-                // leave this header out
+                toReturn = toReturn + "Connection: close" + "\n";
             } else {
                 toReturn = toReturn + key + ":" + headers.get(key) + "\n";
             }
