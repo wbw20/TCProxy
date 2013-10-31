@@ -29,8 +29,11 @@ public class Server {
             Socket connection;
             try {
                 connection = socket.accept();
-                RequestHandler handler = new RequestHandler(connection);
-                handler.run();
+
+                if (connection.isConnected()) {
+                    RequestHandler handler = new RequestHandler(connection);
+                    handler.run();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 // swallow, drop packet
