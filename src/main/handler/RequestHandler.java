@@ -11,16 +11,22 @@ import main.util.Util;
 
 public class RequestHandler implements Runnable {
 
-    private Request request;
+    private Socket connection;
 
-    public RequestHandler(Request request) {
-        this.request = request;
+    public RequestHandler(Socket connection) {
+        this.connection = connection;
     }
 
     @Override
     public void run() {
         PrintWriter outGoing = null;
         try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String input = Util.read(in);
+
+            if ("".equals(input)) { return; } // empty check
+
+            Request request = new Request(input, connection);
             outGoing = new PrintWriter(request.out(), true);
             Socket connSocket = new Socket(request.host(), request.port());
             PrintWriter pOut = new PrintWriter(connSocket.getOutputStream(), true);
