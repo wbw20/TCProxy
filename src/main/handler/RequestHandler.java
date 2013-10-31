@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import main.dns.DNSHelper;
 import main.models.Request;
 import main.util.Util;
 
@@ -28,7 +29,7 @@ public class RequestHandler implements Runnable {
 
             Request request = new Request(input, connection);
             outGoing = new PrintWriter(request.out(), true);
-            Socket connSocket = new Socket(request.host(), request.port());
+            Socket connSocket = new Socket(DNSHelper.lookup(request.host()).getHostName(), request.port());
             PrintWriter out = new PrintWriter(connSocket.getOutputStream(), true);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
