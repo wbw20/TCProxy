@@ -22,27 +22,26 @@ public class RequestHandler implements Runnable {
         PrintWriter outGoing = null;
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String input = Util.read(in);
+            String input = Util.read(in); // from client
 
             if ("".equals(input)) { return; } // empty check
 
             Request request = new Request(input, connection);
             outGoing = new PrintWriter(request.out(), true);
             Socket connSocket = new Socket(request.host(), request.port());
-            PrintWriter pOut = new PrintWriter(connSocket.getOutputStream(), true);
+            PrintWriter out = new PrintWriter(connSocket.getOutputStream(), true);
 
-            BufferedReader pIn = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
-            pOut.print(request.toString());
-            pOut.flush();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
+            out.print(request.toString()); // to server
+            out.flush();
 
-            String dataIn = Util.read(pIn);
+            String dataIn = Util.read(reader); // from server
 
             System.out.println(dataIn);
-            outGoing.write(dataIn);
+            outGoing.write(dataIn); // to client
             outGoing.write((char)(-1));
             outGoing.flush();
         } catch (IOException e) {
-            e.printStackTrace();
             e.printStackTrace();
         }
 
