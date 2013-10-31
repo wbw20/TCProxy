@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,22 +25,8 @@ public class Util {
          return read;
     }
 
-    private static String stringify(ArrayList<Character> chars) {
-        char[] primitives = new char[chars.size()];
-
-        for (int i = 0; i < primitives.length; i++) {
-            primitives[i] = chars.get(i);
-        }
-
-        return new String(primitives);
-    }
-
     public static Boolean isInitialLine(String line) {
         return initial.matcher(line).matches();
-    }
-
-    private static Boolean empty(Integer num) {
-        return num == -1;
     }
 
     public static String host(String raw) {
