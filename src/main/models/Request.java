@@ -19,7 +19,6 @@ public class Request {
     private DataOutputStream stream;
 
     private static Map<String, String> parse(String data) {
-        System.out.println("DATA: " + data);
         Map<String, String> toReturn = new HashMap<String, String>();
         for (String line : data.split("\r\n")) {
             if (!Util.isInitialLine(line)) {
@@ -76,8 +75,9 @@ public class Request {
 
         for (String key : headers.keySet()) {
             if (key.equals("Proxy-Connection")) {
-                // change this to just connection to prevent 400
-                toReturn = toReturn + "Connection: close" + "\n";
+                // leave this header out
+            } else if (key.equals("Accept-Encoding")) {
+                // leave this header out, we want plain text
             } else {
                 toReturn = toReturn + key + ":" + headers.get(key) + "\n";
             }

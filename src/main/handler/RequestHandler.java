@@ -41,6 +41,8 @@ public class RequestHandler implements Runnable {
             System.out.println(dataIn);
             outGoing.write(dataIn); // to client
             outGoing.flush();
+            outGoing.close();
+            request.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
