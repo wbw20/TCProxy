@@ -9,7 +9,8 @@ public class RecordStore {
     private static HashMap<String, Record> records = new HashMap<String, Record>();
 
     public static InetAddress get(String host) {
-        return records.get(host) == null  ? null : records.get(host).address();
+        return records.get(host) == null || records.get(host).expired()
+                ? null : records.get(host).address();
     }
 
     public static InetAddress create(String host) throws UnknownHostException {
